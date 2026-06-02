@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dreamscape — A World of Wonder</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --lime: #C8F135;
+    --ink: #0D0D0D;
+    --cream: #F5F0E8;
+    --rust: #D4441C;
+    --sky: #A8CFFF;
+    --soft: #F0EAD6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(13,13,13,0.1);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--ink);
+    font-size: 0.875rem; font-weight: 400;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rust); }
+  .nav-cta {
+    background: var(--ink); color: var(--lime);
+    padding: 0.55rem 1.4rem; border-radius: 100px;
+    text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--rust); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 2.5rem 4rem;
+    gap: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; bottom: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: var(--sky);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--lime); color: var(--ink);
+    padding: 0.3rem 1rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--rust);
+  }
+  .hero-desc {
+    font-size: 1.05rem; font-weight: 300;
+    line-height: 1.75; color: #444;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--ink); color: var(--lime);
+    padding: 0.85rem 2rem; border-radius: 100px;
+    text-decoration: none; font-size: 0.95rem; font-weight: 500;
+    transition: transform 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1.5px solid var(--ink); color: var(--ink);
+    padding: 0.85rem 2rem; border-radius: 100px;
+    text-decoration: none; font-size: 0.95rem; font-weight: 400;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .card-block {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    position: relative;
+    transition: transform 0.35s;
+  }
+  .card-block:hover { transform: translateY(-6px) rotate(-1deg); }
+  .card-block:nth-child(2) { margin-top: 2.5rem; }
+  .card-block:nth-child(3) { margin-top: -1.5rem; }
+  .cb1 { background: linear-gradient(135deg, #A8CFFF 0%, #7EA8E0 100%); }
+  .cb2 { background: linear-gradient(135deg, #C8F135 0%, #9DC224 100%); }
+  .cb3 { background: linear-gradient(135deg, #D4441C 0%, #A83210 100%); }
+  .cb4 { background: linear-gradient(135deg, #0D0D0D 0%, #333 100%); }
+
+  .card-block-inner {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.2rem;
+    background: rgba(0,0,0,0.25);
+  }
+  .card-block-inner p {
+    font-family: 'Playfair Display', serif;
+    color: #fff; font-size: 1rem; font-style: italic;
+  }
+  .card-shape {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -70%);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--ink); color: var(--lime);
+    padding: 1rem 0; overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-style: italic;
+    margin: 0 2rem;
+  }
+  .marquee-inner .dot { color: var(--rust); font-style: normal; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 7rem 2.5rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .features-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .features-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    max-width: 400px;
+  }
+  .features-header p {
+    font-size: 0.9rem; color: #666; max-width: 280px;
+    line-height: 1.7;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--soft);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, background 0.3s;
+    cursor: default;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    background: var(--ink); color: var(--cream);
+  }
+  .feature-card:hover .feat-num { color: var(--lime); }
+  .feature-card:hover .feat-desc { color: #aaa; }
+
+  .feat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-weight: 700; color: rgba(13,13,13,0.08);
+    line-height: 1; margin-bottom: 1.5rem;
+    transition: color 0.3s;
+  }
+  .feat-title {
+    font-size: 1.1rem; font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  .feat-desc {
+    font-size: 0.9rem; line-height: 1.7; color: #666;
+    transition: color 0.3s;
+  }
+
+  /* BIG QUOTE */
+  .quote-section {
+    background: var(--rust);
+    padding: 7rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-section::before {
+    content: '"';
+    position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 30rem; color: rgba(255,255,255,0.06);
+    line-height: 1; pointer-events: none;
+  }
+  .quote-section blockquote {
+    position: relative; z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-style: italic; color: #fff;
+    max-width: 800px; margin: 0 auto 2rem;
+    line-height: 1.35;
+  }
+  .quote-author {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.9rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* GALLERY */
+  .gallery {
+    padding: 7rem 2.5rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .gallery h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+  .g-item {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .g-item:hover { transform: scale(1.03); }
+  .g-item-inner {
+    width: 100%; padding-bottom: 120%;
+    position: relative;
+  }
+  .g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .g-item:nth-child(1) .g-item-inner { padding-bottom: 60%; }
+
+  .g1 { background: linear-gradient(145deg, #C8F135, #85B03A); }
+  .g2 { background: linear-gradient(145deg, #A8CFFF, #5890CF); }
+  .g3 { background: linear-gradient(145deg, #0D0D0D, #444); }
+  .g4 { background: linear-gradient(145deg, #F5F0E8, #D8D0B8); }
+  .g5 { background: linear-gradient(145deg, #D4441C, #902E0F); }
+
+  .g-label {
+    position: absolute; bottom: 1rem; left: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-style: italic;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .g1 .g-label, .g4 .g-label { color: rgba(13,13,13,0.7); text-shadow: none; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 4rem 2.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+  }
+  .footer-brand span { color: var(--lime); }
+  .footer-tagline {
+    font-size: 0.85rem; color: #888; margin-top: 0.5rem;
+  }
+  .footer-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .footer-links a {
+    color: #888; text-decoration: none; font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--lime); }
+  .footer-bottom {
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 0.8rem; color: #555;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding-top: 6rem; }
+    .hero-visual { display: none; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .g-item:nth-child(1) { grid-column: span 2; }
+    nav .nav-links { display: none; }
+  }
+  @media (max-width: 480px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .g-item:nth-child(1) { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Dreamscape</div>
+  <ul class="nav-links">
+    <li><a href="#features">Work</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#quote">About</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Let's talk →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">✦ Creative Studio 2026</div>
+    <h1>Where ideas become <em>alive</em></h1>
+    <p class="hero-desc">We craft digital experiences that feel like magic — blending bold design, thoughtful storytelling, and just a pinch of chaos.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#gallery">View our work</a>
+      <a class="btn-outline" href="#features">Our approach</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="card-block cb1">
+      <svg class="card-shape" width="80" height="80" viewBox="0 0 80 80">
+        <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+        <circle cx="40" cy="40" r="16" fill="rgba(255,255,255,0.3)"/>
+      </svg>
+      <div class="card-block-inner"><p>Calm &amp; clarity</p></div>
+    </div>
+    <div class="card-block cb2">
+      <svg class="card-shape" width="80" height="80" viewBox="0 0 80 80">
+        <polygon points="40,8 72,68 8,68" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="2"/>
+        <polygon points="40,22 62,60 18,60" fill="rgba(0,0,0,0.1)"/>
+      </svg>
+      <div class="card-block-inner" style="background:rgba(0,0,0,0.12)"><p style="color:rgba(0,0,0,0.7)">Bold energy</p></div>
+    </div>
+    <div class="card-block cb3">
+      <svg class="card-shape" width="80" height="80" viewBox="0 0 80 80">
+        <rect x="12" y="12" width="56" height="56" rx="8" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" transform="rotate(20 40 40)"/>
+      </svg>
+      <div class="card-block-inner"><p>Fire &amp; motion</p></div>
+    </div>
+    <div class="card-block cb4">
+      <svg class="card-shape" width="80" height="80" viewBox="0 0 80 80">
+        <line x1="40" y1="8" x2="40" y2="72" stroke="rgba(200,241,53,0.5)" stroke-width="2"/>
+        <line x1="8" y1="40" x2="72" y2="40" stroke="rgba(200,241,53,0.5)" stroke-width="2"/>
+        <circle cx="40" cy="40" r="20" fill="none" stroke="rgba(200,241,53,0.4)" stroke-width="2"/>
+      </svg>
+      <div class="card-block-inner"><p>Night &amp; depth</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Brand Identity</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>Motion &amp; Animation</span><span class="dot">✦</span>
+    <span>Creative Direction</span><span class="dot">✦</span>
+    <span>Visual Storytelling</span><span class="dot">✦</span>
+    <span>UI / UX</span><span class="dot">✦</span>
+    <span>Brand Identity</span><span class="dot">✦</span>
+    <span>Web Design</span><span class="dot">✦</span>
+    <span>Motion &amp; Animation</span><span class="dot">✦</span>
+    <span>Creative Direction</span><span class="dot">✦</span>
+    <span>Visual Storytelling</span><span class="dot">✦</span>
+    <span>UI / UX</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-header">
+    <h2>How we make the magic happen</h2>
+    <p>Our process is equal parts science, craft, and a healthy obsession with the details everyone else ignores.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feat-num">01</div>
+      <div class="feat-title">Deep listening</div>
+      <p class="feat-desc">Before we draw a single pixel, we sit with your story. Every brand has a heartbeat — we find it.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-num">02</div>
+      <div class="feat-title">Bold concepts</div>
+      <p class="feat-desc">We don't do safe. We explore the edges, the unexpected angles, the ideas that make you say "wait — yes."</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-num">03</div>
+      <div class="feat-title">Pixel-perfect craft</div>
+      <p class="feat-desc">Details are where trust is built. Spacing, type, motion — every choice is deliberate and intentional.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-num">04</div>
+      <div class="feat-title">Rapid iteration</div>
+      <p class="feat-desc">We move fast and adapt faster. You get real work, real feedback, real progress — not months of silence.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-num">05</div>
+      <div class="feat-title">Live &amp; alive</div>
+      <p class="feat-desc">We build for the real world — responsive, accessible, performant. Beautiful things that actually work.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-num">06</div>
+      <div class="feat-title">Lasting impact</div>
+      <p class="feat-desc">We're not here for one project. We're here to watch your brand grow and evolve — together, long-term.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section" id="quote">
+  <blockquote>"Design is not just what it looks like. Design is how it makes you feel when nothing else explains why you can't stop staring."</blockquote>
+  <p class="quote-author">— The Dreamscape Manifesto</p>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <h2>A few things we're proud of</h2>
+  <div class="gallery-grid">
+    <div class="g-item g1">
+      <div class="g-item-inner">
+        <div class="g-label">Verdure Rebrand</div>
+      </div>
+    </div>
+    <div class="g-item g2">
+      <div class="g-item-inner">
+        <div class="g-label">Skyline App</div>
+      </div>
+    </div>
+    <div class="g-item g3">
+      <div class="g-item-inner">
+        <div class="g-label">Nocturne</div>
+      </div>
+    </div>
+    <div class="g-item g4">
+      <div class="g-item-inner">
+        <div class="g-label" style="color:rgba(13,13,13,0.6)">Ivory Editorial</div>
+      </div>
+    </div>
+    <div class="g-item g5">
+      <div class="g-item-inner">
+        <div class="g-label">Ember Campaign</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <div class="footer-brand">Dream<span>scape</span></div>
+    <p class="footer-tagline">Making the internet a more beautiful place, one pixel at a time.</p>
+  </div>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Behance</a>
+    <a href="#">Twitter</a>
+    <a href="#">hello@dreamscape.co</a>
+  </div>
+  <div class="footer-bottom">© 2026 Dreamscape Studio. Crafted with obsession.</div>
+</footer>
+
+</body>
+</html>
